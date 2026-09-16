@@ -10,7 +10,7 @@ let submit = document.getElementById("calculate");
 submit.addEventListener("click", function(e) {
     e.preventDefault();
  if
-  (discount.value === "" || amount.value === ""){
+  (discount.value === "" , amount.value === ""){
 
     result.textContent = "vul beide velden in."
   }
