@@ -10,6 +10,7 @@ In deze week leer je de moderne JavaScript-syntax: kortere notaties voor functie
 | DOM elementen selecteren en aanpassen | [DOM manipulatie](https://meesterjson.nl/cheat-sheet/pages/javascript/dom-manipulatie.html) |
 | Reageren op gebruikersacties | [Events & listeners](https://meesterjson.nl/cheat-sheet/pages/javascript/events.html) |
 
+
 ## Weekoverzicht
 
 | Onderdeel | Concept | Tijd |
