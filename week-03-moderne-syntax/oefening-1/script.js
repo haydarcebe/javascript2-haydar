@@ -55,8 +55,8 @@ showBrands(brands);
 
 // Extra: toon ook in de DOM
 const brandsList = document.querySelector('#brands-list');
-for (brand of brands) {
-  brandsList.innerHTML += `<li> ${brands}  </li>`;
+for (let brand of brands) {
+  brandsList.innerHTML += `<li> ${brand}  </li>`;
 }
 
 // ------------------------------------------------------------
