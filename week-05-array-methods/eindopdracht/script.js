@@ -13,32 +13,70 @@ const products = [
   { name: 'Desk organizer', category: 'Kantoor', price: 24, stock: true },
 ];
 
+const producten = document.querySelector('#products');
+const counting = document.querySelector('#counter');
+const searchbar = document.querySelector('#search-bar');
+const sortlow = document.querySelector('#sort-low');
+const sorthigh = document.querySelector('#sort-high');
+
 let searchTerm = '';
 let sorting = '';
 
 const showProducts = (products) => {
+  // Lege staat
+  if (products.length === 0) {
+    producten.innerHTML = '<p>Geen resultaten gevonden.</p>';
+    counting.textContent = '0 producten';
+    return;
+  }
+
   // Toon elk product als een <article> in #products
+  producten.innerHTML = products.map(product =>
+    `<article>
+      <h3>${product.name}</h3>
+      <p>${product.category}</p>
+      <p>€${product.price}</p>
+      <p>${product.stock ? 'Op voorraad' : 'Niet op voorraad'}</p>
+    </article>`
+  ).join('');
+
   // Laat in #counter de hoeveelheid producten zien
+  counting.textContent = `${products.length} producten`;
 };
 
 const filterProducts = () => {
-  // Maak een variabele 'filtered' aan door de products array te filteren op searchTerm
-  // Gebruik hiervoor filter() en includes() en toLowerCase()
+  // Filteren op searchTerm
+  const filtered = products.filter(product =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-  // Filter hier op sorting:
-  // als sorting 'low' is, sorteer van laag naar hoog op prijs
-  // als sorting 'high' is, sorteer van hoog naar laag op prijs
+  // Sorteren op prijs
+  if (sorting === 'low') {
+    filtered.sort((a, b) => a.price - b.price);   // laag naar hoog
+  } else if (sorting === 'high') {
+    filtered.sort((a, b) => b.price - a.price);   // hoog naar laag
+  }
 
   showProducts(filtered);
 };
 
-// Maak een eventlistener voor de #search-bar input
-// Sla de waarde op in de searchTerm variabele en roep filterProducts() aan
+// Zoekbalk
+searchbar.addEventListener('input', () => {
+  searchTerm = searchbar.value;
+  filterProducts();
+});
 
-// Maak een eventlistener voor de #sort-low button
-// Zet sorting op 'low' en roep filterProducts() aan
+// Knop: laag naar hoog
+sortlow.addEventListener('click', () => {
+  sorting = 'low';
+  filterProducts();
+});
 
-// Maak een eventlistener voor de #sort-high button
-// Zet sorting op 'high' en roep filterProducts() aan
+// Knop: hoog naar laag
+sorthigh.addEventListener('click', () => {
+  sorting = 'high';
+  filterProducts();
+});
 
+// Eerste keer tonen
 filterProducts();
