@@ -7,7 +7,7 @@ In deze week leer je hoe je objecten aanmaakt en gebruikt: properties, methoden 
 | Onderwerp | Cheatsheet |
 |-----------|-----------|
 | Properties, methods en this | [Objecten](https://meesterjson.nl/cheat-sheet/pages/javascript/objects.html) |
-| Destructuring en spread-operator | [Destructuring & spread](https://meesterjson.nl/cheat-sheet/pages/javascript/destructuring-spread.html) |
+| Destructuring en spread-operator | [Destructuring & spread](https: //meesterjson.nl/cheat-sheet/pages/javascript/destructuring-spread.html) |
 
 ## Weekoverzicht
 

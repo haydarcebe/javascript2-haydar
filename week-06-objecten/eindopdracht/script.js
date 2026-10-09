@@ -7,26 +7,54 @@ const users = [
 
 let filter = 'all';
 
+const usersEl = document.querySelector('#users');
+const form = document.querySelector('#user-form');
+
 const showUsers = (users) => {
-  // Gebruik destructuring voor elke user: const { name, email, role, active } = user
-  // Toon elke user als een <article> in #users
+  usersEl.innerHTML = users
+    .map((user) => {
+      const { name, email, role, active } = user;
+      return `
+        <article>
+          <h3>${name}</h3>
+          <p>${email}</p>
+          <p>Rol: ${role}</p>
+          <p>${active ? 'Actief' : 'Inactief'}</p>
+        </article>
+      `;
+    })
+    .join('');
 };
 
 const filterUsers = () => {
-  // Als filter 'admin' is, toon alleen gebruikers met role === 'admin'
-  // Anders toon je alle gebruikers
-  // Roep showUsers() aan met de gefilterde lijst
+  const gefilterd =
+    filter === 'admin' ? users.filter((user) => user.role === 'admin') : users;
+  showUsers(gefilterd);
 };
 
-// Maak een eventlistener voor de #filter-admin button
-// Zet filter op 'admin' en roep filterUsers() aan
+document.querySelector('#filter-admin').addEventListener('click', () => {
+  filter = 'admin';
+  filterUsers();
+});
 
-// Maak een eventlistener voor de #filter-all button
-// Zet filter op 'all' en roep filterUsers() aan
+document.querySelector('#filter-all').addEventListener('click', () => {
+  filter = 'all';
+  filterUsers();
+});
 
-// Maak een eventlistener voor het #user-form submit event
-// Lees naam, email en role uit de invoervelden
-// Maak een nieuw user object aan met spread op een default object
-// Voeg toe aan de array en roep filterUsers() aan
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+
+  const name = document.querySelector('#name').value;
+  const email = document.querySelector('#email').value;
+  const role = document.querySelector('#role').value;
+
+  const defaultUser = { name: '', email: '', role: 'user', active: true };
+  const newUser = { ...defaultUser, name, email, role };
+
+  users.push(newUser);
+  filterUsers();
+  form.reset();
+});
 
 filterUsers();
