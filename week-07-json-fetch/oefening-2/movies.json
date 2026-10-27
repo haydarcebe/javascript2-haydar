@@ -1,1 +1,5 @@
-[]
+[ {"title": "kaasmovie", "director": "Haydar", "year": 2012, "genre": "thriller"},
+ {"title": "beenhoofd", "director": "Mijnbroer", "year": 2020, "genre": "drama"},
+ {"title": "kaasavondeten", "director": "mijnmoeder", "year": 2021, "genre": "drama"},
+ {"title": "driebenen", "director": "mijnoom", "year": 2025, "genre": "thriller"}
+]
