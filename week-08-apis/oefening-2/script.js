@@ -1,23 +1,58 @@
-let allPokemon = [];
+let allCountries = [];
 
-// De API geeft een object terug met een 'results' array
-// Elk item heeft een 'name' property
-// Gebruik console.log(data) om de structuur te bekijken
+async function haalLandenOp() {
+  try {
+    const response = await fetch('https://restcountries.com/v3.1/all?fields=name,flags');
 
-// De afbeelding van een Pokémon staat op:
-// https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{id}.png
-// Sla het id op via de index bij het laden: { ...pokemon, id: index + 1 }
+    if (!response.ok) {
+      throw new Error('API error');
+    }
 
-fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
-  .then(response => response.json())
-  .then(data => {
-    console.log(data); // Bekijk de structuur
+    const data = await response.json();
 
-    // Sla data.results op in allPokemon, voeg het id toe via de index
-    // Toon alle Pokémon in #pokemon-list met naam en afbeelding
-    // Toon het aantal in #counter
-  })
-  .catch(error => console.error('Fout:', error));
+    console.log(data); // Kijk eerst wat je krijgt!
+
+    // Sla data op in allCountries
+    allCountries = data;
+
+    // Toon alle landen
+    toonLanden(allCountries);
+
+  } catch (error) {
+    console.error('Fout:', error);
+  }
+}
+
+// Toon alle landen in #country-list met naam en afbeelding
+// Toon het aantal in #counter
+function toonLanden(list) {
+  const container = document.querySelector('#country-list');
+  const counter = document.querySelector('#counter');
+
+  container.innerHTML = '';
+
+  for (let country of list) {
+    const card = document.createElement('article');
+    card.innerHTML = `
+      <h3>${country.name.common}</h3>
+      <img src="${country.flags.png}" alt="Vlag van ${country.name.common}">
+    `;
+    container.appendChild(card);
+  }
+
+  counter.textContent = list.length;
+}
 
 // Voeg een event listener toe aan #search-bar
-// Filter allPokemon op naam en herrender de lijst
+// Filter allCountries op naam en herrender de lijst
+document.querySelector('#search-bar').addEventListener('input', event => {
+  const query = event.target.value.toLowerCase();
+
+  const filtered = allCountries.filter(country =>
+    country.name.common.toLowerCase().includes(query)
+  );
+
+  toonLanden(filtered);
+});
+
+haalLandenOp();
